@@ -69,7 +69,7 @@ def main_gui():
         tasks[i] = ("[x] " if done else "[ ] ") + text
 
     #filtering state + mapping from visible rows -> real indices
-    filter_var = tk.StringVar(value="All")  # All / Active / Done
+    filter_var = tk.StringVar(value="All")  #All / Active / Done
     visible_indices = []  #indices into 'tasks' for the rows shown in the listbox
 
     def compute_visible():
@@ -266,3 +266,4 @@ if __name__ == "__main__":
         main_gui()
     else:
         main()
+
