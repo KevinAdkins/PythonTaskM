@@ -12,7 +12,6 @@ from PySide6.QtGui import QFont, QIcon
 tasks = []
 DATA_FILE = Path("schedule.json")
 
-
 def load_tasks():
     global tasks
     if DATA_FILE.exists():
@@ -26,13 +25,11 @@ def load_tasks():
     else:
         tasks = []
 
-
 def save_tasks():
     try:
         DATA_FILE.write_text(json.dumps(tasks, ensure_ascii=False, indent=2), encoding="utf-8")
     except Exception as e:
         print(f"Error saving tasks: {e}")
-
 
 class TaskManagerWindow(QMainWindow):
     def __init__(self):
@@ -46,7 +43,6 @@ class TaskManagerWindow(QMainWindow):
         self.setWindowTitle("Task Manager")
         self.setMinimumSize(600, 500)
         
-        # Apply modern stylesheet
         self.setStyleSheet("""
             QMainWindow {
                 background-color: #a2e8b8;
@@ -117,14 +113,14 @@ class TaskManagerWindow(QMainWindow):
             }
         """)
 
-        # Central widget
+        #Central widget
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
         main_layout = QVBoxLayout(central_widget)
         main_layout.setContentsMargins(20, 20, 20, 20)
         main_layout.setSpacing(15)
 
-        # Title
+        #Title
         title_label = QLabel("📋 Task Manager")
         title_font = QFont()
         title_font.setPointSize(18)
@@ -133,7 +129,7 @@ class TaskManagerWindow(QMainWindow):
         title_label.setStyleSheet("color: #1976d2; margin-bottom: 10px;")
         main_layout.addWidget(title_label)
 
-        # Filter bar
+        #Filter bar
         filter_layout = QHBoxLayout()
         filter_label = QLabel("Filter:")
         filter_label.setStyleSheet("font-weight: bold; color: #616161;")
@@ -147,12 +143,12 @@ class TaskManagerWindow(QMainWindow):
         
         main_layout.addLayout(filter_layout)
 
-        # Task list
+        #Task list
         self.task_list = QListWidget()
         self.task_list.itemDoubleClicked.connect(self.edit_task)
         main_layout.addWidget(self.task_list)
 
-        # Button bar
+        #Button bar
         button_layout = QHBoxLayout()
         button_layout.setSpacing(10)
 
@@ -182,7 +178,7 @@ class TaskManagerWindow(QMainWindow):
 
         main_layout.addLayout(button_layout)
 
-        # Keyboard shortcuts
+        #Keyboard shortcuts
         self.task_list.keyPressEvent = self.handle_key_press
 
     def handle_key_press(self, event):
@@ -237,7 +233,7 @@ class TaskManagerWindow(QMainWindow):
         self.task_list.clear()
         for pos, idx in enumerate(self.visible_indices, start=1):
             task_text = tasks[idx]
-            # Add visual styling for completed tasks
+            #Visual styling for completed tasks
             if self.is_done(task_text):
                 display_text = f"{pos}. {task_text}"
                 item = QListWidgetItem(display_text)
@@ -318,7 +314,6 @@ class TaskManagerWindow(QMainWindow):
             save_tasks()
             self.refresh_list()
 
-
 def main_gui():
     """Launch the Qt GUI"""
     load_tasks()
@@ -327,8 +322,7 @@ def main_gui():
     window.show()
     sys.exit(app.exec())
 
-
-# Console-based functions (unchanged from original)
+#Console-based functions 
 def get_setup_option():
     while True:
         try:
@@ -341,7 +335,6 @@ def get_setup_option():
         except ValueError:
             print("Please enter a valid number.")
 
-
 def setup_schedule():
     try:
         num_inputs = int(input("Enter the number of tasks you would like in your schedule: "))
@@ -351,7 +344,6 @@ def setup_schedule():
         save_tasks()
     except ValueError:
         print("Invalid input. Please enter a number.")
-
 
 def get_user_choice():
     while True:
@@ -367,7 +359,6 @@ def get_user_choice():
         except ValueError:
             print("Please enter a valid number.")
 
-
 def view_schedule():
     if tasks:
         print("\nSchedule:")
@@ -375,7 +366,6 @@ def view_schedule():
             print(f"{i}. {task}")
     else:
         print("No schedule available.")
-
 
 def add_tasks():
     try:
@@ -386,7 +376,6 @@ def add_tasks():
         save_tasks()
     except ValueError:
         print("Invalid input. Please enter a number.")
-
 
 def remove_tasks():
     if tasks:
@@ -403,7 +392,6 @@ def remove_tasks():
             print("Please enter a valid number.")
     else:
         print("No tasks to remove.")
-
 
 def main():
     load_tasks()
@@ -424,7 +412,6 @@ def main():
         elif choice == 4:
             print("Goodbye!")
             break
-
 
 if __name__ == "__main__":
     USE_GUI = True
